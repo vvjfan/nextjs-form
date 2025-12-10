@@ -145,11 +145,11 @@ export default function SignUpForm({ action }: SignUpFormProps) {
         </form>
         <p className="text-muted-foreground mt-4 text-center text-sm">
           By joining, you agree to our{' '}
-          <a href="/terms" className="hover:text-primary underline">
+          <a href="/terms" className="underline-offset-4 hover:underline capitalize text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90">
             Terms of Service
           </a>{' '}
           and{' '}
-          <a href="/privacy" className="hover:text-primary underline">
+          <a href="/privacy" className="underline-offset-4 hover:underline capitalize text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90">
             Privacy Policy
           </a>
         </p>
