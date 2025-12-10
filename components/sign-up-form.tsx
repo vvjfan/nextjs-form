@@ -37,7 +37,10 @@ export default function SignUpForm({ action }: SignUpFormProps) {
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),
     mode: 'onBlur',
-    defaultValues: actionState.formData,
+    defaultValues: actionState.formData || { 
+      email: '', 
+      password: '',
+    },
   })
 
   return (

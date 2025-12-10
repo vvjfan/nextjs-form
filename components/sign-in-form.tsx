@@ -21,6 +21,7 @@ import { Input } from '@/components/ui/input'
 import { type SignInActionState, signInFormSchema, type SignInFormData } from '@/lib/definitions/auth'
 import { useActionState, useState, useTransition } from 'react'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import Link from 'next/link'
 
 interface SignInFormProps {
   action: (initialState: SignInActionState, formData: FormData) => Promise<SignInActionState>
@@ -37,7 +38,10 @@ export default function SignInForm({ action }: SignInFormProps) {
   const form = useForm<SignInFormData>({
     resolver: zodResolver(signInFormSchema),
     mode: 'onBlur',
-    defaultValues: actionState.formData,
+    defaultValues: actionState.formData || { 
+      email: '', 
+      password: '',
+    },
   })
 
   return (
@@ -143,6 +147,15 @@ export default function SignInForm({ action }: SignInFormProps) {
             Sign In
           </Button>
         </form>
+        <p className="mt-6 text-sm text-center text-muted-foreground dark:text-muted-foreground">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/sign-up"
+            className="ml-auto text-sm underline-offset-4 hover:underline text-foreground dark:text-foreground"
+          >
+            Sign up
+          </Link>
+        </p>
       </CardContent>
     </Card>
   )
