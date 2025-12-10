@@ -179,7 +179,7 @@ export default function SignInForm({ action }: SignInFormProps) {
           Don&apos;t have an account?{" "}
           <Link
             href="/sign-up"
-            className="ml-auto text-sm underline-offset-4 hover:underline text-foreground dark:text-foreground"
+            className="font-medium underline-offset-4 hover:underline text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
           >
             Sign up
           </Link>

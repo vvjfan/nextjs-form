@@ -8,6 +8,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
@@ -20,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { type SignUpActionState, signUpFormSchema, type SignUpFormData } from '@/lib/definitions/auth'
 import { JSX, SVGProps, useActionState, useTransition } from 'react'
+import Link from 'next/link'
 
 const Logo = (props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) => (
   <svg
@@ -152,6 +154,17 @@ export default function SignUpForm({ action }: SignUpFormProps) {
           </a>
         </p>
       </CardContent>
+      <CardFooter>
+        <p className="w-full text-center text-sm text-muted-foreground dark:text-muted-foreground">
+          Already have an account?{" "}
+          <Link
+            href="/sign-in"
+            className="font-medium underline-offset-4 hover:underline text-primary hover:text-primary/90 dark:text-primary hover:dark:text-primary/90"
+          >
+            Sign in
+          </Link>
+        </p>
+      </CardFooter>
     </Card>
   )
 }
