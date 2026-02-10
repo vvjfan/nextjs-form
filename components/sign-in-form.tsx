@@ -145,13 +145,22 @@ export default function SignInForm({ action }: SignInFormProps) {
             />
           </FieldGroup>
 
+          {actionState.formError && (
+            <div
+              role="alert"
+              className="rounded-md bg-destructive/15 p-3 text-sm text-destructive"
+            >
+              {actionState.formError}
+            </div>
+          )}
+
           <Field orientation="horizontal">
             <Checkbox id="remember" defaultChecked />
             <FieldLabel htmlFor="remember" className="text-sm font-normal">
               Remember me
             </FieldLabel>
           </Field>
-          
+
           <Button className="w-full" type="submit" disabled={isPending}>
             Sign In
           </Button>

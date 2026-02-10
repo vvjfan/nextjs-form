@@ -114,7 +114,16 @@ export default function SignUpForm({ action }: SignUpFormProps) {
               )}
             />
           </FieldGroup>
-          
+
+          {actionState.formError && (
+            <div
+              role="alert"
+              className="rounded-md bg-destructive/15 p-3 text-sm text-destructive"
+            >
+              {actionState.formError}
+            </div>
+          )}
+
           <Button className="w-full" type="submit" disabled={isPending}>
             Sign Up
           </Button>

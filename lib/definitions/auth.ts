@@ -19,6 +19,7 @@ type SignUpFieldErrors = z.ZodFlattenedError<SignUpFormData>['fieldErrors']
 export type SignUpActionState = {
   formData?: SignUpFormData
   fieldErrors?: SignUpFieldErrors
+  formError?: string
 }
 
 // Sign In Form Schema
@@ -37,4 +38,5 @@ type SignInFieldErrors = z.ZodFlattenedError<SignInFormData>['fieldErrors']
 export type SignInActionState = {
   formData?: SignInFormData
   fieldErrors?: SignInFieldErrors
+  formError?: string
 }
