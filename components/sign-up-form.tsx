@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Logo } from '@/components/logo'
 import { type SignUpActionState, signUpFormSchema, type SignUpFormData } from '@/lib/definitions/auth'
-import { useActionState } from 'react'
+import { useActionState, useTransition } from 'react'
 import Link from 'next/link'
 
 interface SignUpFormProps {
@@ -29,6 +29,7 @@ interface SignUpFormProps {
 
 export default function SignUpForm({ action }: SignUpFormProps) {
   const [actionState, formAction, isPending] = useActionState(action, {})
+  const [, startTransition] = useTransition()
 
   const {
     control,
@@ -58,11 +59,13 @@ export default function SignUpForm({ action }: SignUpFormProps) {
         <form
           id="form-signup-demo"
           onSubmit={handleSubmit((data) => {
-            const formData = new FormData()
-            Object.entries(data).forEach(([key, value]) => {
-              formData.append(key, String(value))
+            startTransition(() => {
+              const formData = new FormData()
+              Object.entries(data).forEach(([key, value]) => {
+                formData.append(key, String(value))
+              })
+              formAction(formData)
             })
-            formAction(formData)
           })}
           className="space-y-4"
           noValidate
