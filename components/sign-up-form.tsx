@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Logo } from '@/components/logo'
 import { type SignUpActionState, signUpFormSchema, type SignUpFormData } from '@/lib/definitions/auth'
-import { useActionState, useTransition } from 'react'
+import { useActionState } from 'react'
 import Link from 'next/link'
 
 interface SignUpFormProps {
@@ -28,8 +28,7 @@ interface SignUpFormProps {
 }
 
 export default function SignUpForm({ action }: SignUpFormProps) {
-  const [actionState, submitAction, isPending] = useActionState(action, {})
-  const [, startTransition] = useTransition()
+  const [actionState, formAction, isPending] = useActionState(action, {})
 
   const {
     control,
@@ -37,8 +36,8 @@ export default function SignUpForm({ action }: SignUpFormProps) {
   } = useForm<SignUpFormData>({
     resolver: zodResolver(signUpFormSchema),
     mode: 'onBlur',
-    defaultValues: actionState.formData || { 
-      email: '', 
+    defaultValues: actionState.formData || {
+      email: '',
       password: '',
     },
   })
@@ -57,13 +56,13 @@ export default function SignUpForm({ action }: SignUpFormProps) {
       </CardHeader>
       <CardContent>
         <form
-          id="form-signup-demo" 
-          action={submitAction}
-          onSubmit={handleSubmit((_, e) => {
-            startTransition(() => {
-              const formData = new FormData(e?.target)
-              submitAction(formData)
+          id="form-signup-demo"
+          onSubmit={handleSubmit((data) => {
+            const formData = new FormData()
+            Object.entries(data).forEach(([key, value]) => {
+              formData.append(key, String(value))
             })
+            formAction(formData)
           })}
           className="space-y-4"
           noValidate

@@ -20,7 +20,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Logo } from '@/components/logo'
 import { type SignInActionState, signInFormSchema, type SignInFormData } from '@/lib/definitions/auth'
-import { useActionState, useCallback, useState, useTransition } from 'react'
+import { useActionState, useCallback, useState } from 'react'
 import { EyeIcon, EyeOffIcon } from 'lucide-react'
 import Link from 'next/link'
 
@@ -29,8 +29,7 @@ interface SignInFormProps {
 }
 
 export default function SignInForm({ action }: SignInFormProps) {
-  const [actionState, submitAction, isPending] = useActionState(action, {})
-  const [, startTransition] = useTransition()
+  const [actionState, formAction, isPending] = useActionState(action, {})
 
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
@@ -62,14 +61,15 @@ export default function SignInForm({ action }: SignInFormProps) {
       <CardContent>
         <form
           id="form-signin-demo"
-          action={submitAction}
-          onSubmit={handleSubmit((_, e) => {
-            startTransition(() => {
-              const formData = new FormData(e?.target)
-              submitAction(formData)
+          onSubmit={handleSubmit((data) => {
+            const formData = new FormData()
+            Object.entries(data).forEach(([key, value]) => {
+              formData.append(key, String(value))
             })
+            formAction(formData)
           })}
           className="space-y-4"
+          noValidate
         >
           <FieldGroup>
             <Controller
